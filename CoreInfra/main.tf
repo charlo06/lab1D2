@@ -16,3 +16,24 @@ resource "aws_subnet" "mSn" {
     Name = "mSn"
   }
 }
+
+resource "aws_internet_gateway" "mIgw" {
+  vpc_id = "${aws_vpc.mVpc.id}"
+
+  tags = {
+    Name = "mIgw"
+  }
+}
+
+resource "aws_route_table" "mRt" {
+  vpc_id = "${aws_vpc.mVpc.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.mIgw.id}"
+  }
+
+  tags = {
+    Name = "mRt"
+  }
+}
