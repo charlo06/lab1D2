@@ -1,3 +1,4 @@
 CoreInfra/.terraform
 CoreInfra/terraform.tfstate
 CoreInfra/terraform.tfstate.backup
+CoreInfra/terraform.tfvars

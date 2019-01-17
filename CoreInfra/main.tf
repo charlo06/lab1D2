@@ -1,7 +1,7 @@
 provider "aws" {}
 
 resource "aws_vpc" "mVpc" {
-  cidr_block = "172.23.0.0/16"
+  cidr_block = "${var.cidr_vpc}"
 
   tags = {
     Name = "mVpc"
@@ -10,7 +10,7 @@ resource "aws_vpc" "mVpc" {
 
 resource "aws_subnet" "mSn" {
   vpc_id     = "${aws_vpc.mVpc.id}"
-  cidr_block = "172.23.1.0/24"
+  cidr_block = "${var.cidr_subnet}"
 
   tags = {
     Name = "mSn"
