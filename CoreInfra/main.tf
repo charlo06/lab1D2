@@ -10,10 +10,12 @@ resource "aws_vpc" "mVpc" {
 
 resource "aws_subnet" "mSn" {
   vpc_id     = "${aws_vpc.mVpc.id}"
-  cidr_block = "${var.cidr_subnet}"
+  count      = 2
+  availability_zone = "${element(var.avaibility_zones, count.index)}"
+  cidr_block = "${element(var.cidr_subnet_public,count.index)}"
 
   tags = {
-    Name = "mSn"
+    Name = "mSn-${count.index}"
   }
 }
 
@@ -39,6 +41,7 @@ resource "aws_route_table" "mRt" {
 }
 
 resource "aws_route_table_association" "mRtAssociation" {
-  subnet_id      = "${aws_subnet.mSn.id}"
+  count =2
+  subnet_id      = "${element(aws_subnet.mSn.*.id,count.index)}"
   route_table_id = "${aws_route_table.mRt.id}"
 }

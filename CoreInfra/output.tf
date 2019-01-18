@@ -3,5 +3,5 @@ output "vpcId" {
 }
 
 output "subnetId" {
-  value = "[${aws_subnet.mSn.id}]"
+  value = "${aws_subnet.mSn.*.id}"
 }
